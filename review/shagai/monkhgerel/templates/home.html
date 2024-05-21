@@ -12,7 +12,7 @@
     </ul>
 </body>
 <script>
-    // window.addEventListener('load', )
+
     const todoListItem = document.querySelector('#lists');
      
     const datafetch = async()=>{
@@ -29,27 +29,30 @@
         TodoData.map((el)=>{
             todoListItem.innerHTML +=`<li>
                 <p>${el.Todo}</p>
-                <button >delete</button>
+                <button onClick="deleteFun(${el.id})" >delete</button>
                 </li>`
         })
 
 
     }
     dataView()
-    const deleteFun = async()=>{
+    const deleteFun = async(id)=>{
         let csrf = document.cookie.split(' ')[0]
-        console.log(csrf)
-        let token = csrf.split("=")[1]
-        console.log(token)
-
-        let res = await fetch(`http://127.0.0.1:8000/data/1`,  {
-        method: 'DELETE',
        
+        let token = csrf.split("=")[1]
+        let csrfToken = token.split(';')[0]
+        console.log(csrfToken)
+
+        let res = await fetch(`http://127.0.0.1:8000/data/${id}/`,  {
+            headers:{
+                'X-CSRFToken':csrfToken, 
+            },
+        method: 'DELETE',
     } )
         let data = await res.json()
         console.log(data)
     }
 
-    deleteFun()
+    
 </script>
 </html>

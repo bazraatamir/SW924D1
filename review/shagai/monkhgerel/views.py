@@ -11,7 +11,7 @@ class todoData(generics.ListCreateAPIView):
     queryset = Todo.objects.all()
     serializer_class = Todo_serializer
 
-class UpdateDestroy(generics.DestroyAPIView):
+class UpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
         queryset = Todo.objects.all()
         serializer_class = Todo_serializer
     
